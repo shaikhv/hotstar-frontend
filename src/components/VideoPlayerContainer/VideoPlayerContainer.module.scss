@@ -1,0 +1,53 @@
+.mastheadCard {
+    background: #0c111b;
+    margin: 0 15px;
+    border-radius: 5px;
+    color: #fff;
+    border-color: #334366 !important;
+    .mastheadData {
+      color: rgba(255, 255, 255, 0.8);
+      width: 36%;
+      height: 100%;
+      margin-right: 12px;
+      h3 {
+        font-weight: 500;
+      }
+      span {
+        position: relative;
+        font-size: 15px;
+        margin-right: 30px;
+        &:last-child {
+          &:after {
+            content: none;
+          }
+        }
+        &:after {
+          content: "";
+          position: absolute;
+          width: 4px;
+          height: 4px;
+          background: rgba(255, 255, 255, 0.8);
+          border-radius: 5px;
+          top: 0;
+          bottom: 0;
+          margin: auto;
+          right: -16px;
+          margin-left: 5px;
+        }
+      }
+    }
+    .imageGradient {
+      background: linear-gradient(to right, #0c111b, rgba(0, 0, 0, 0));
+      height: 100%;
+      width: 200px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0%;
+    }
+    .imageHolder {
+      img {
+        border-radius: 5px;
+      }
+    }
+  }

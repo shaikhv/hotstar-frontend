@@ -1,0 +1,254 @@
+.mastheadCard {
+  background: #0c111b;
+  margin: 0 15px;
+  border-radius: 5px;
+  color: #fff;
+  border-color: #334366 !important;
+  .mastheadData {
+    color: rgba(255, 255, 255, 0.8);
+    width: 36%;
+    height: 100%;
+    margin-right: 12px;
+    h3 {
+      font-weight: 500;
+    }
+    span {
+      position: relative;
+      font-size: 15px;
+      margin-right: 30px;
+      &:last-child {
+        &:after {
+          content: none;
+        }
+      }
+      &:after {
+        content: "";
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 5px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        right: -16px;
+        margin-left: 5px;
+      }
+    }
+  }
+  .imageGradient {
+    background: linear-gradient(to right, #0c111b, rgba(0, 0, 0, 0));
+    height: 100%;
+    width: 200px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0%;
+  }
+  .imageHolder {
+    img {
+      border-radius: 5px;
+    }
+  }
+}
+
+
+.listingArticle {
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+  -webkit-transition: transform 0.25s cubic-bezier(0.33, 0.04, 0.63, 0.93);
+  -o-transition: transform 0.25s cubic-bezier(0.33, 0.04, 0.63, 0.93);
+  -webkit-transition: -webkit-transform 0.25s
+    cubic-bezier(0.33, 0.04, 0.63, 0.93);
+  transition: -webkit-transform 0.25s cubic-bezier(0.33, 0.04, 0.63, 0.93);
+  -o-transition: -o-transform 0.25s cubic-bezier(0.33, 0.04, 0.63, 0.93);
+  transition: transform 0.25s cubic-bezier(0.33, 0.04, 0.63, 0.93);
+  transition: transform 0.25s cubic-bezier(0.33, 0.04, 0.63, 0.93),
+    -webkit-transform 0.25s cubic-bezier(0.33, 0.04, 0.63, 0.93),
+    -o-transform 0.25s cubic-bezier(0.33, 0.04, 0.63, 0.93);
+  .actionBtn {
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+  }
+  .overlapDetails {
+    position: absolute;
+    bottom: 0;
+    opacity: 0;
+    width: 100%;
+    transition: opacity 0.25s ease-in,
+      bottom 0.25s cubic-bezier(0.33, 0.04, 0.63, 0.93);
+    background-image: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      from(rgba(4, 8, 15, 0)),
+      color-stop(rgba(25, 33, 50, 1)),
+      to(rgba(25, 33, 50, 1))
+    );
+    background-image: -webkit-linear-gradient(
+      top,
+      rgba(4, 8, 15, 0),
+      rgba(25, 33, 50, 1),
+      rgba(25, 33, 50, 1)
+    );
+    background-image: -o-linear-gradient(
+      top,
+      rgba(4, 8, 15, 0),
+      rgba(25, 33, 50, 1),
+      rgba(25, 33, 50, 1)
+    );
+    background-image: linear-gradient(
+      to bottom,
+      rgba(4, 8, 15, 0),
+      rgba(25, 33, 50, 1),
+      rgba(25, 33, 50, 1)
+    );
+  }
+  &:hover {
+    z-index: 4;
+    .overlapDetails {
+      opacity: 1;
+    }
+  }
+}
+
+.sliderContainer {
+  .sliderIcon {
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: auto;
+    font-size: 27px;
+    z-index: 999;
+    opacity: 0;
+    transition: all 0.5s;
+    cursor: pointer;
+    &.sliderLeft {
+      left: 20px;
+    }
+    &.sliderRight {
+      right: 20px;
+    }
+  }
+  &:hover {
+    .sliderIcon {
+      opacity: 1;
+    }
+  }
+  &.sliderListing {
+    .sliderIcon {
+      color: #fff;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      transform: translateY(0);
+      margin: auto;
+      font-size: 27px;
+      z-index: 999;
+      transition: all 0.5s;
+      cursor: pointer;
+      &.sliderRight {
+        right: -50px;
+        z-index: 2;
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: calc(calc(100vw - 165px) / 20);
+        cursor: pointer;
+        background: -webkit-gradient(
+          linear,
+          left top,
+          right top,
+          from(transparent),
+          color-stop(rgba(12, 17, 27, 0.7)),
+          to(rgba(12, 17, 27, 0.9))
+        );
+        background: -webkit-linear-gradient(
+          left,
+          transparent,
+          rgba(12, 17, 27, 0.7),
+          rgba(12, 17, 27, 0.9)
+        );
+        background: -o-linear-gradient(
+          left,
+          transparent,
+          rgba(12, 17, 27, 0.7),
+          rgba(12, 17, 27, 0.9)
+        );
+        background: linear-gradient(
+          to right,
+          transparent,
+          rgba(12, 17, 27, 0.7),
+          rgba(12, 17, 27, 0.9)
+        );
+        -webkit-transition: opacity 0.6s ease-out;
+        -o-transition: opacity 0.6s ease-out;
+        transition: opacity 0.6s ease-out;
+      }
+      &.sliderLeft {
+        left: -50px;
+        z-index: 2;
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: calc(calc(100vw - 165px) / 20);
+        cursor: pointer;
+        background: -webkit-gradient(
+          linear,
+          right top,
+          left top,
+          from(transparent),
+          color-stop(rgba(12, 17, 27, 0.7)),
+          to(rgba(12, 17, 27, 0.9))
+        );
+        background: -webkit-linear-gradient(
+          right,
+          transparent,
+          rgba(12, 17, 27, 0.7),
+          rgba(12, 17, 27, 0.9)
+        );
+        background: -o-linear-gradient(
+          right,
+          transparent,
+          rgba(12, 17, 27, 0.7),
+          rgba(12, 17, 27, 0.9)
+        );
+        background: linear-gradient(
+          to left,
+          transparent,
+          rgba(12, 17, 27, 0.7),
+          rgba(12, 17, 27, 0.9)
+        );
+        -webkit-transition: opacity 0.3s ease-in-out;
+        -o-transition: opacity 0.3s ease-in-out;
+        transition: opacity 0.3s ease-in-out;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .mastheadCard {
+    .mastheadData{
+      position: absolute;
+      z-index: 9;
+      width: 100%;
+      height: auto;
+      bottom: 0;
+      background: linear-gradient(to top, #0c111b, rgba(0, 0, 0, 0));
+    }
+    .imageGradient{
+      opacity: 0;
+    }
+    .imageHolder{
+      img{
+        width: 100%;
+      }
+    }
+  }
+}
+
+

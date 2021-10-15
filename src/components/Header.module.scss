@@ -1,0 +1,10 @@
+.header{
+    position: sticky;
+    top: 0;
+    z-index: 999999;
+    background: linear-gradient(to bottom, #141b29, #0c111b 300px);
+}
+
+.header__icons{
+    padding: 20px;
+}
