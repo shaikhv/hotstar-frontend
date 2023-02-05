@@ -1,6 +1,5 @@
-import React from "react";
+import React, { memo } from "react";
 import { Container } from "reactstrap";
-import { useHistory } from "react-router-dom";
 import AddEpisode from "../../pages/Movies/AddEpisode";
 import { useSelector } from "react-redux";
 
@@ -14,7 +13,6 @@ function ClipsSlider({
     const { user } = useSelector((state) => state);
 
   const redirectToDetails = (id) => {
-    console.log('redirectToididididid',id)
     playVideo(id, episodes ? 'episode':'')
   };
 
@@ -39,4 +37,4 @@ function ClipsSlider({
   );
 }
 
-export default ClipsSlider;
+export default memo(ClipsSlider);

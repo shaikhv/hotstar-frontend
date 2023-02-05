@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import {
   Collapse,
   Navbar,
@@ -7,7 +7,7 @@ import {
   NavItem,
   NavbarText,
 } from "reactstrap";
-import { useHistory, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import firebase from "firebase";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Header.module.scss";
@@ -17,7 +17,6 @@ const Header = ({ openLogin }) => {
   const { user } = useSelector((state) => state);
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -73,18 +72,6 @@ const Header = ({ openLogin }) => {
       </Collapse>
     </Navbar>
   );
-  // return (
-  //     <div className="header">
-
-  //         <IconButton>
-  //             <PersonIcon fontSize="large" className="header__icons"/>
-  //         </IconButton>
-  //         <img width="40" src="https://uxwing.com/wp-content/themes/uxwing/download/10-brands-and-social-media/tinder.png" alt=""/>
-  //         <IconButton>
-  //             <ForumIcon fontSize="large" className="header__icons"/>
-  //         </IconButton>
-  //     </div>
-  // )
 };
 
-export default Header;
+export default memo(Header);

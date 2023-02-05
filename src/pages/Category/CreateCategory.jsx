@@ -117,8 +117,6 @@ function CreateCategory() {
     }
   };
 
-  console.log(initialValues)
-
   return (
     <Container fluid className="my-4 px-3 px-md-5">
       <Row>

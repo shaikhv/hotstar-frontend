@@ -1,37 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { memo } from "react";
 import Slider from "react-slick";
 import { Container } from "reactstrap";
 import styles from "./Slider.module.scss";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
-const SliderContainer = ({ isMovieList }) => {
-  const [movieSlide, setMovieSlides] = useState([]);
+const SampleNextArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <i
+      className={`${styles.sliderIcon} ${styles.sliderRight} fas fa-chevron-right`}
+      onClick={onClick}
+    />
+  );
+};
 
-  useEffect(() => {
-    setMovieSlides(isMovieList);
-  }, [isMovieList]);
+const SamplePrevArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <i
+      className={`${styles.sliderIcon} ${styles.sliderLeft} fas fa-chevron-left`}
+      onClick={onClick}
+    />
+  );
+};
 
-  const SampleNextArrow = (props) => {
-    const { onClick } = props;
-    return (
-      <i
-        className={`${styles.sliderIcon} ${styles.sliderRight} fas fa-chevron-right`}
-        onClick={onClick}
-      />
-    );
-  };
-
-  console.log('movieSlide',movieSlide)
-
-  const SamplePrevArrow = (props) => {
-    const { onClick } = props;
-    return (
-      <i
-        className={`${styles.sliderIcon} ${styles.sliderLeft} fas fa-chevron-left`}
-        onClick={onClick}
-      />
-    );
-  };
+const SliderContainer = ({ isMovieList = [] }) => {
 
   const settings = {
     className: `center ${styles.sliderContainer}`,
@@ -55,9 +48,9 @@ const SliderContainer = ({ isMovieList }) => {
 
   return (
     <>
-      {movieSlide.length !== 0 ? (
+      {isMovieList.length !== 0 ? (
         <Slider {...settings}>
-          {movieSlide && movieSlide.map((movie) => {
+          {isMovieList.map((movie) => {
             return (
               <div
                 key={movie._id}
@@ -111,4 +104,4 @@ const SliderContainer = ({ isMovieList }) => {
   );
 };
 
-export default SliderContainer;
+export default memo(SliderContainer);

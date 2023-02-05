@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Table } from "reactstrap";
-import ImagePoster from "../../assets/images/poster.jpg";
 import Login from "../../components/Auth/Login";
 
 const plans = [
@@ -56,7 +55,7 @@ const Subscibe = ({ movie }) => {
             </thead>
               <tbody className="text-white">
                 {isPlanList.map((plan) => {
-                  return <tr>
+                  return <tr key={plan.name}>
                     <td>{plan.name}</td>
                     <td width="150px" className={`text-center ${isPricingPlan === 1 ? 'active':''}`}>
                       {plan.super}
@@ -81,7 +80,7 @@ const Subscibe = ({ movie }) => {
                       <sup>₹</sup>
                       899
                     </span>
-                    <span class="pack-duration">/Year</span>
+                    <span className="pack-duration">/Year</span>
                   </button>
                 </Col>
                 <Col md={6}>
@@ -95,7 +94,7 @@ const Subscibe = ({ movie }) => {
                       <sup>₹</sup>
                       1499
                     </span>
-                    <span class="pack-duration">/Year</span>
+                    <span className="pack-duration">/Year</span>
                   </button>
                 </Col>
               </Row>

@@ -28,7 +28,6 @@ function AddMovie() {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [loadingState, setLoadingState] = useState("");
   const { user } = useSelector((state) => state);
-  const [isLoading, setLoading] = useState(false);
   const [ isAdmin, setAdmin ] = useState(false)
 
   useEffect(() => {
@@ -39,16 +38,12 @@ function AddMovie() {
 
   useEffect(() => {
     loadCategories();
-  }, []);
-
-  useEffect(() => {
     loadMovie();
   }, []);
 
   const loadMovie = () => {
     getMovies()
       .then((res) => {
-        console.log(res);
         setAllListSlide(res.data);
       })
       .catch((err) => {
@@ -86,7 +81,6 @@ function AddMovie() {
     let resizedImages = {};
     setLoadingState(e.target.name);
     if (files) {
-      setLoading(true);
       if (files[0].type === "image/jpeg") {
         Resizer.imageFileResizer(
           files[0],
@@ -108,7 +102,6 @@ function AddMovie() {
               )
               .then((res) => {
                 resizedImages = res.data;
-                console.log(res.data);
                 setInitialState((prevState) => {
                   return { ...prevState, [e.target.name]: resizedImages.url };
                 });
@@ -124,18 +117,6 @@ function AddMovie() {
         const reader = new FileReader();
         reader.readAsDataURL(files[0]);
         reader.onloadend = () => {
-          // const config = {
-          //   headers: {
-          //     authtoken: user ? user.token : "",
-          //   },
-          //   onUploadProgress: (progressEvent) => {
-          //     const { loaded, total } = progressEvent;
-          //     const percentCompleted = Math.round(
-          //       (loaded * 100) / total
-          //     );
-          //     setuploadingstate(percentCompleted);
-          //   },
-          // };
           axios
             .post(
               `${process.env.REACT_APP_API}/upload-video`,
@@ -148,7 +129,6 @@ function AddMovie() {
             )
             .then((res) => {
               resizedImages = res.data;
-              console.log(res.data);
               setInitialState((prevState) => {
                 return { ...prevState, [e.target.name]: res.data.url };
               });
@@ -186,12 +166,13 @@ function AddMovie() {
               </h2>
               <Row>
                 {allListSlide.map((movie) => {
+                  const { _id, title, imagePoster, category, description } = movie;
                   return (
                     <Col
                       md={isAdmin ? 3 : 2}
-                      key={movie._id}
+                      key={_id}
                       className="vertical p-3"
-                      onClick={() => redirectToDetails(movie._id)}
+                      onClick={() => redirectToDetails(_id)}
                     >
                       <article
                         className={`${styles.listingArticle} ripple movie-card vertical`}
@@ -199,7 +180,7 @@ function AddMovie() {
                         <div className="thumbnail-container">
                           <div className="card-img-container">
                             <img
-                              src={movie.imagePoster}
+                              src={imagePoster}
                               className="img-loader lazy-img-loader loaded w-100 rounded-lg"
                               loading="lazy"
                               alt=""
@@ -212,7 +193,7 @@ function AddMovie() {
                           <div>
                             <div className="content-play">
                               <span className="content-title ellipsise mb-2">
-                                {movie.title}
+                                {title}
                               </span>
                             </div>
                             <div
@@ -224,7 +205,7 @@ function AddMovie() {
                               </div>
                               ,
                               <span className="subtitle">
-                                {movie.category.map(
+                                {category.map(
                                   (category) => category.name
                                 )}
                               </span>
@@ -233,8 +214,8 @@ function AddMovie() {
                               className="description ellipsize mb-2"
                               style={{ fontSize: "12px" }}
                             >
-                              {movie.description.length > 35
-                                ? `${movie.description.substring(0, 35)}...`
+                              {description.length > 35
+                                ? `${description.substring(0, 35)}...`
                                 : ""}
                             </div>
                             <div
@@ -278,7 +259,7 @@ function AddMovie() {
                       outline
                       className="py-4 px-5 mr-3 text-white"
                     >
-                      <i class="fas fa-film mr-2" />
+                      <i className="fas fa-film mr-2" />
                       Movie
                     </Button>
                     <Button
@@ -293,7 +274,7 @@ function AddMovie() {
                         })
                       }
                     >
-                      <i class="fas fa-tv mr-2" />
+                      <i className="fas fa-tv mr-2" />
                       Tv Series
                     </Button>
                   </div>
