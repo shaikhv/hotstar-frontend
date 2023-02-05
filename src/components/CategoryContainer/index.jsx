@@ -1,9 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import { Col } from "reactstrap";
 import styles from "./CategoryContainer.module.scss";
 
 const CategoryContainer = ({ categories, deleteCat, isEditable, editCat }) => {
-  console.log(categories)
   return (
     <>
       {categories ? (
@@ -56,4 +55,4 @@ const CategoryContainer = ({ categories, deleteCat, isEditable, editCat }) => {
   );
 };
 
-export default CategoryContainer;
+export default memo(CategoryContainer);

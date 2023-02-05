@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { useHistory } from 'react-router-dom'
 import { auth, googleAuthProvider } from '../../firebase'
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
@@ -102,4 +102,4 @@ const googleLogin = () => {
   );
 };
 
-export default Login;
+export default memo(Login);

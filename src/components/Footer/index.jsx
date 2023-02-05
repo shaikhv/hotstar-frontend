@@ -1,13 +1,8 @@
-import React, { useState } from "react";
+import React, { memo } from "react";
 import { Container, Row, Col } from "reactstrap";
-import { useHistory, NavLink, Link } from "react-router-dom";
-import firebase from "firebase";
-import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
-  const { user } = useSelector((state) => state);
-  const [isOpen, setIsOpen] = useState(false);
-  const dispatch = useDispatch();
 
   return (
     <div className="footer">
@@ -93,4 +88,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default memo(Footer);

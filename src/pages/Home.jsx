@@ -1,92 +1,92 @@
-import React, { useEffect, useState } from 'react'
-import SliderContainer from '../components/Slider/Slider';
-import Categories from '../components/Categories/Categories';
-import ListingSlider from '../components/Slider/ListingSlider';
-import { auth } from '../firebase';
-import { useDispatch, useSelector } from 'react-redux';
-import { currentUser, getMovies, getMovieByDate, getMoviesByType } from "../constants/urls";
+import React, { useEffect, useState } from "react";
+import SliderContainer from "../components/Slider/Slider";
+import Categories from "../components/Categories/Categories";
+import ListingSlider from "../components/Slider/ListingSlider";
+import { getMovies, getMovieByDate, getMoviesByType } from "../constants/urls";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { Container } from "reactstrap";
 
-function Home() {
-  const dispatch = useDispatch()
-  const { user } = useSelector(state => state)
+const titles = {
+  movie: "Movies",
+  episode: "Episodes",
+  isSortedList: "Recently Added",
+};
+
+const Home = () => {
   const [isMovieList, setMovieList] = useState([]);
-  const [isSortList, setSortList] = useState([]);
-  const [isAllMovieList, setAllMovieList] = useState([]);
-  const [isEpisodeList, setEpisodeList] = useState([]);
-
-  console.log(user)
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        const tokenId = await user.getIdTokenResult();
-        currentUser(tokenId.token)
-          .then((res) => {
-            dispatch({
-              type: "LOGGED_IN_USER",
-              payload: {
-                name: res.data.name,
-                email: res.data.email,
-                role: res.data.role,
-                _id: res.data._id,
-                token: tokenId.token
-              }
-            })
-          })
-          .catch((err) => console.log("Error", err))
-      }
-    })
-    return () => unsubscribe();
-  }, [dispatch])
+  const [isEpisodeMovieList, setEpisodeMovieList] = useState({
+    isSortedList: [],
+    movie: [],
+    episode: [],
+  });
 
   useEffect(() => {
-    getMovies().then(res => {
-      console.log(res)
-      setMovieList(res.data)
-    }).catch(err => {
-      console.log(err)
-    })
-  },[])
+    getSliderList();
+    movieSortDate();
+    getMovieList("movie");
+    getMovieList("episode");
+  }, []);
 
-  useEffect(() => {
-    movieSortDate()
-    getMovieList()
-    getEpisodeList()
-  },[])
+  const getSliderList = () => {
+    getMovies()
+      .then((res) => {
+        setMovieList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const movieSortDate = () => {
-    getMovieByDate().then(res => {
-      setSortList(res.data)
-    }).catch(err => {
-      console.log(err)
-    })
-  }
+    getMovieByDate()
+      .then(({ data }) => {
+        setEpisodeMovieList((prevState) => ({
+          ...prevState,
+          isSortedList: data,
+        }));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  const getMovieList = () => {
-    getMoviesByType({ type: 'movie' }).then(res => {
-      setAllMovieList(res.data)
-    }).catch(err => {
-      console.log(err)
-    })
-  }
-
-  const getEpisodeList = () => {
-    getMoviesByType({ type: 'episode' }).then(res => {
-      setEpisodeList(res.data)
-    }).catch(err => {
-      console.log(err)
-    })
-  }
+  const getMovieList = (type) => {
+    getMoviesByType({ type })
+      .then(({ data }) => {
+        setEpisodeMovieList((prevState) => ({
+          ...prevState,
+          [type]: data,
+        }));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <>
-    <SliderContainer isMovieList={isMovieList}/>
-    <Categories />
-    <ListingSlider isMovieList={isSortList} title="Recommended For You"/>
-    <ListingSlider isMovieList={isAllMovieList} title="Movies"/>
-    <ListingSlider isMovieList={isEpisodeList} title="Episodes"/>
+      <SliderContainer isMovieList={isMovieList} />
+      <Categories />
+      {Object.keys(isEpisodeMovieList).map((key, i) => {
+        if (!isEpisodeMovieList?.[key]?.length) {
+          return (
+            <Container fluid key={`loader${i}`} className="my-4 mx-3 mx-md-5">
+              <SkeletonTheme color="#182235" highlightColor="#26324e">
+                <Skeleton className="mx-0 mx-md-3" count={1} height={228} />
+              </SkeletonTheme>
+            </Container>
+          );
+        }
+        return (
+          <ListingSlider
+            key={titles[key]}
+            isMovieList={isEpisodeMovieList[key]}
+            title={titles[key]}
+          />
+        );
+      })}
     </>
   );
-}
+};
 
 export default Home;

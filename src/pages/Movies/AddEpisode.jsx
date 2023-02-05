@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Slider from "react-slick";
 import styles from "./Movie.module.scss";
 
-function AddEpisode({ role, movieList, redirect }) {
-  const [selectedVideo, setSelectedVideo] = useState(1);
+function AddEpisode({ movieList, redirect }) {
 
   const SampleNextArrow = (props) => {
     const { onClick } = props;
@@ -72,7 +71,6 @@ function AddEpisode({ role, movieList, redirect }) {
                           <span className="d-flex align-items-center" style={{ fontSize: "13px" }}>
                             <i
                               className="fas fa-play mr-2"
-                              onClick={() => setSelectedVideo(i)}
                             />
                             {video.title}
                           </span>
@@ -100,7 +98,6 @@ function AddEpisode({ role, movieList, redirect }) {
                           >
                             <i
                               className="fas fa-play mr-2"
-                              onClick={() => setSelectedVideo(i)}
                               style={{ fontSize: "12px" }}
                             />
                             {video.title}

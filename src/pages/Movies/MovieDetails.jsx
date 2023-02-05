@@ -52,7 +52,6 @@ const MovieDetails = ({ setLoginModal }) => {
       user.token
     )
       .then((res) => {
-        console.log(res.data);
         setAddClipOpen(false);
         loadEpisodes();
         loadTrailerClips();
@@ -75,7 +74,6 @@ const MovieDetails = ({ setLoginModal }) => {
   const loadRelatedEpisodes = () => {
     setLoading(true);
     getRelatedEpisode(movieId, episodeId, { isType: "episode" }).then((res) => {
-      console.log("res.data", res.data);
       setEpisodeList(res.data);
       setLoading(false);
     });
@@ -84,7 +82,6 @@ const MovieDetails = ({ setLoginModal }) => {
   const loadRelatedTrailers = () => {
     setLoading(true);
     getRelatedEpisode(movieId, episodeId).then((res) => {
-      console.log("res.data", res.data);
       setTrailerList(res.data);
       setLoading(false);
     });
@@ -99,7 +96,6 @@ const MovieDetails = ({ setLoginModal }) => {
   const loadEpisodeDetails = (id) => {
     getEpisodeDetails(id, { isType: isEpisodeType })
       .then((res) => {
-        console.log(res.data);
         setIsEpisodeDetails(res.data);
         setLoading(false);
       })
@@ -112,7 +108,6 @@ const MovieDetails = ({ setLoginModal }) => {
     setLoading(true);
     getEpisode(movieId, { isType: "episode" })
       .then((res) => {
-        console.log(res.data);
         setEpisodeList(res.data);
         setLoading(false);
       })
@@ -125,12 +120,11 @@ const MovieDetails = ({ setLoginModal }) => {
     setLoading(true);
     getEpisode(movieId, { isType: "trailer" })
       .then((res) => {
-        console.log("trailes,trailes", res);
         setTrailerList(res.data);
         setLoading(false);
       })
       .catch((err) => {
-        console.log("traileserr,traileserr", err);
+        console.log(err);
       });
   };
 
@@ -145,7 +139,6 @@ const MovieDetails = ({ setLoginModal }) => {
     setLoading(true);
     getMovie(movieId)
       .then((res) => {
-        console.log(res.data);
         setMovie(res.data);
         setLoading(false);
       })
@@ -154,40 +147,9 @@ const MovieDetails = ({ setLoginModal }) => {
       });
   };
 
-  const SampleNextArrow = (props) => {
-    const { onClick } = props;
-    return (
-      <i
-        className={`${styles.sliderIcon} ${styles.sliderRight} fas fa-chevron-right`}
-        onClick={onClick}
-      />
-    );
-  };
-
-  const SamplePrevArrow = (props) => {
-    const { onClick } = props;
-    return (
-      <i
-        className={`${styles.sliderIcon} ${styles.sliderLeft} fas fa-chevron-left`}
-        onClick={onClick}
-      />
-    );
-  };
-
   const openLogin = () => {
     setLoginModal(true)
   }
-
-  const settings = {
-    className: `center ${styles.sliderContainer}`,
-    centerMode: true,
-    infinite: true,
-    centerPadding: "60px",
-    slidesToShow: 1,
-    speed: 500,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
-  };
 
   useEffect(() => {
     setLoading(true);
@@ -209,7 +171,6 @@ const MovieDetails = ({ setLoginModal }) => {
   };
 
   const playVideo = (id, type) => {
-    console.log("playVideo", id);
     setEpisodeType(type);
     if (id) {
       history.push(`/movie-details/${movieId}/${id}`);

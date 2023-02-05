@@ -1,16 +1,15 @@
-let initialState = []
-
-if(localStorage.getItem("cart")){
-    initialState = JSON.parse(localStorage.getItem("cart"))
-}else{
-    initialState = []
+let initialState = [];
+const cart = localStorage.getItem("cart");
+if (cart) {
+  initialState = JSON.parse(cart);
+} else {
+  initialState = [];
 }
 
 export const cartReducer = (state = initialState, action) => {
-    switch(action.type){
-        case 'ADD_TO_CART':
-            return action.payload;
-        default:
-            return state
-    }
-}
+  const { type, payload } = action;
+  if (type === "ADD_TO_CART") {
+    return payload;
+  }
+  return state;
+};

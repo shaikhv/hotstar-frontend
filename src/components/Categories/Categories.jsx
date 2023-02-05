@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import { Container, Row, Col } from "reactstrap";
 import videoDisney from "../../assets/video/disney.mp4";
 import videoPixar from "../../assets/video/pixar.mp4";
@@ -55,24 +55,28 @@ const Categories = () => {
   const isMobile = /iPhone|iPod|Android/i.test(navigator.userAgent);
 
   return (
-    <Container fluid className="my-4 px-3 px-md-5 ">
+    <Container fluid className="my-4 px-3 px-md-5">
       <Row className="mx-0">
         {categories.map((category, i) => {
+          const { name, mobImgUrl, imgUrl, videoUrl } = category;
           return (
-            <Col className={`${styles.movieCategory} px-0 px-md-3`}>
+            <Col
+              key={`category-${name}`}
+              className={`${styles.movieCategory} px-0 px-md-3`}>
               <img
                 alt=""
                 className="w-100 rounded-lg px-1 px-md-3"
-                src={isMobile ? category.mobImgUrl : category.imgUrl}
+                src={isMobile ? mobImgUrl : imgUrl}
               />
               <video
                 className="w-100 rounded-lg d-none d-md-block"
-                autoplay="autoplay"
+                autoPlay
                 preload="auto"
+                muted
                 onMouseOver={(event) => event.target.play()}
                 onMouseOut={(event) => event.target.pause()}
               >
-                <source src={category.videoUrl} type="video/mp4" />
+                <source src={videoUrl} type="video/mp4" />
               </video>
             </Col>
           );
@@ -82,4 +86,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default memo(Categories);

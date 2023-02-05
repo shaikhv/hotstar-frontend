@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const createOrderUpdateUser = async (authtoken) => {
-  console.log(process.env.REACT_APP_API);
   return await axios.post(
     `${process.env.REACT_APP_API}/create-or-update-user`,
     {},
@@ -14,7 +13,6 @@ export const createOrderUpdateUser = async (authtoken) => {
 };
 
 export const currentUser = async (authtoken) => {
-  console.log(process.env.REACT_APP_API);
   return await axios.post(
     `${process.env.REACT_APP_API}/create-or-update-user`,
     {},

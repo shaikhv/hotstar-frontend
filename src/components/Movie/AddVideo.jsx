@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import Resizer from "react-image-file-resizer";
 import axios from "axios";
 import { Formik, Form, Field, FieldArray } from "formik";
@@ -86,7 +86,6 @@ const AddVideo = ({ show, close, token, onSubmit }) => {
             )
             .then((res) => {
               resizedImages = res.data;
-              console.log(res.data);
               setFieldValue(`clips[${index}].video`, res.data.url);
               setLoadingState("");
             })
@@ -309,4 +308,4 @@ const AddVideo = ({ show, close, token, onSubmit }) => {
   );
 };
 
-export default AddVideo;
+export default memo(AddVideo);

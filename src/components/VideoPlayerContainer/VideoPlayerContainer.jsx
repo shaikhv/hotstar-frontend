@@ -1,10 +1,10 @@
-import React, {  } from "react";
+import React, { memo } from "react";
 import { Container } from "reactstrap";
 import styles from "./VideoPlayerContainer.module.scss";
 import ReactPlayer from "react-player";
 
 const VideoPlayerContainer = ({ clips }) => {
-  console.log('clipsclipsclips',clips)
+  
   return (
     <>
         <ReactPlayer
@@ -52,4 +52,4 @@ const VideoPlayerContainer = ({ clips }) => {
   );
 };
 
-export default VideoPlayerContainer;
+export default memo(VideoPlayerContainer);
